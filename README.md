@@ -36,8 +36,10 @@ To maintain a clean and lightweight repository:
 - **Artifacts in GitHub Releases:** All binary archives are published strictly in
   **[GitHub Releases](https://github.com/boardport/lk2nd-releases/releases)**.
 - **Clean Package Bundles:** Each release publishes clean distribution packages:
-  - `<release>.tar.gz` and `<release>.zip` containing original binaries (`lk2nd.img`, `emmc_appsboot.mbn`, `qcdt.img`, `lk.bin`).
-  - `SHA256SUMS` checksum verification manifest.
+  - `<release>.tar.gz` and `<release>.zip` containing original binaries
+    (`lk2nd.img`, `lk1st.mbn`, `emmc_appsboot.mbn`, `qcdt.img`, `lk.bin`, `lk1st.bin`).
+  - Individual `<release>.tar.gz.sha256` and `<release>.zip.sha256` hash verification files.
+  - `SHA256SUMS` summary checksum verification manifest.
   - Bilingual release notes (`[EN]` / `[RU]`) with usage instructions.
 
 ---
@@ -48,8 +50,8 @@ Releases are structured using descriptive tag schemes:
 
 | Release Category | Tag Pattern | Example Tag | Description |
 | :--- | :--- | :--- | :--- |
-| **BoardPort Target** | `lk2nd-<soc>-boardport-<version>` | `lk2nd-msm8916-boardport-23.1` | Customized build with BoardPort hardware overlay |
-| **Upstream Mirror** | `upstream-lk2nd-<soc>-<version>` | `upstream-lk2nd-msm8916-23.1` | Archival mirror of official upstream build for specific SoC |
+| **BoardPort Target** | `boardport-<soc>-<version>` | `boardport-msm8916-23.1` | Customized build with BoardPort hardware overlay |
+| **Upstream Mirror** | `upstream-<soc>-<version>` | `upstream-msm8916-23.1` | Archival mirror of official upstream build for specific SoC |
 
 ---
 
@@ -57,7 +59,7 @@ Releases are structured using descriptive tag schemes:
 
 Once downloaded and extracted from the release archive:
 
-### 1. Test Boot Without Flashing (Recommended)
+### 1. Test Boot Without Flashing (Secondary lk2nd)
 
 Boot temporarily into lk2nd to verify display, buttons, and console output:
 
@@ -65,17 +67,29 @@ Boot temporarily into lk2nd to verify display, buttons, and console output:
 fastboot boot lk2nd.img
 ```
 
-### 2. Flash Permanently to Boot Partition
+### 2. Flash Secondary Bootloader (Partition boot)
 
-Flash lk2nd as the primary kernel/boot payload:
+Flash lk2nd into the Android boot partition:
 
 ```bash
 fastboot flash boot lk2nd.img
 ```
 
-### 3. Verify Checksums
+### 3. Flash Primary Bootloader (lk1st for partition aboot)
+
+When replacing or recovering the primary bootloader partition:
 
 ```bash
+fastboot flash aboot lk1st.mbn
+```
+
+### 4. Verify Checksums
+
+```bash
+# Verify individual archive package:
+sha256sum -c <archive>.tar.gz.sha256
+
+# Or verify entire release manifest:
 sha256sum -c SHA256SUMS
 ```
 
