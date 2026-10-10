@@ -1,0 +1,26 @@
+# Dumps, Firmware Binaries & Bootloader Images
+dumps/
+downloads/
+*.bin
+*.img
+*.mbn
+*.elf
+*.raw
+*.tar.gz
+*.zip
+
+# Temporary Staging & Local Cache
+tmp/
+temp/
+backups/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+
+# Operating System Files & IDEs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

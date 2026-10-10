@@ -1,0 +1,46 @@
+# IDE & Development Tools
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# AI Agents & LLM Context
+.ai/
+.agents/
+.claude/
+.continue/
+.cursor/
+.gemini/
+.qwen/
+*.chat_history
+*.context
+
+# Binary Firmware, Bootloader Images & Archives
+*.bin
+*.img
+*.mbn
+*.elf
+*.raw
+*.tar.gz
+*.zip
+
+# Temporary Staging & Local Cache
+/tmp*
+/temp*
+/backups*
+/dumps*
+/downloads*
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Environment Variables
+.env*
+!.env.example
